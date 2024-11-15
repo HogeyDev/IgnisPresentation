@@ -1,5 +1,5 @@
 import { slide as title } from "./slides/title.js";
-import { Color, Element } from "./types.js";
+import { Animation, Color, Element } from "./types.js";
 
 window.onload = () => {
   loadSlide(title);
@@ -10,6 +10,7 @@ let current_slide = null;
 function loadSlide(slide) {
   current_slide = slide;
   runKeyframe(0);
+  advance();
   draw();
 }
 
@@ -48,20 +49,31 @@ function createPhysicalElement(elem) {
       phys.style.transform = `translate(${-anchorX * 100}%, ${
         -anchorY * 100
       }%)`;
+      phys.style.opacity = elem.opacity || 0;
 
       return phys;
   }
 }
 
 function runKeyframe(index) {
-  console.log(index, current_slide.keyframes);
   for (const anim of current_slide.keyframes[index]) {
-    console.log(anim);
+    switch (anim.type) {
+      case Animation.Show:
+        current_slide.elements[anim.element].opacity = 1;
+        console.log(current_slide);
+        break;
+      case Animation.FadeIn:
+        console.error("FadeIn not implemented");
+        break;
+      case Animation.FadeOut:
+        console.error("FadeIn not implemented");
+        break;
+    }
   }
+  draw();
 }
 function advance() {
-  keyframe++;
-  runKeyframe(index);
+  runKeyframe(++keyframe);
 }
 
 window.onresize = draw;

@@ -5,8 +5,10 @@ export const Element = Object.freeze({
 });
 
 export const Animation = Object.freeze({
-  FadeIn: 0,
-  FadeOut: 1,
+  Show: 0,
+  Hide: 1,
+  FadeIn: 2,
+  FadeOut: 3,
 });
 
 export const Color = Object.freeze({

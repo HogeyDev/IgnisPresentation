@@ -13,11 +13,12 @@ export const slide = {
     },
   ],
   keyframes: [
-    [{}],
+    [],
     [
       {
-        type: Animation.FadeIn,
+        type: Animation.Show,
         element: 0,
+        duration: 0.5,
       },
     ],
   ],
