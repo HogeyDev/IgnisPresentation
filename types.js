@@ -1,8 +1,9 @@
 const Element = Object.freeze({
     Text: 0,
     Image: 1,
-    Arrow: 2,
-    Code: 3,
+    Rectangle: 2,
+    Arrow: 3,
+    Code: 4,
 });
 
 const Animation = Object.freeze({
@@ -12,6 +13,8 @@ const Animation = Object.freeze({
     FadeOut: 3,
     SlideIn: 4,
     SlideOut: 5,
+    Move: 6,
+    Resize: 7,
 });
 
 const Color = Object.freeze({
