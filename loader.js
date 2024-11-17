@@ -4,6 +4,7 @@
 const SLIDES = 1;
 
 window.onload = () => {
+    resizeBody();
     force_draw = true;
     loadSlide(presentation);
     draw();
@@ -26,7 +27,9 @@ function draw() {
         document.body.innerHTML = "<div class=\"counter\"></div>";
         document.body.style.backgroundColor =
             display_slide.background ?? Color.Background;
+        document.documentElement.style.backgroundColor = "#000000";
         for (const elem of display_slide.elements) {
+            if (elem.opacity <= 0 || elem.opacity === undefined) continue;
             const html_element = createPhysicalElement(elem);
             document.body.appendChild(html_element);
         }
@@ -35,9 +38,9 @@ function draw() {
         counter.style.color = Color.Foreground;
         counter.style.fontFamily = "sans-serif";
         counter.style.position = "absolute";
-        counter.style.left = `${window.innerWidth}px`;
-        counter.style.top = `${window.innerHeight}px`;
-        counter.style.transform = "translate(-110%, -110%)";
+        counter.style.left = `${document.body.clientWidth}px`;
+        counter.style.top = `${document.body.clientHeight}px`;
+        counter.style.transform = "translate(-100%, -100%)";
         counter.innerText = keyframe_counter;
     }
 
@@ -48,8 +51,8 @@ function createPhysicalElement(elem) {
     let phys = document.createElement(elem.type == Element.Image ? "img" : "div");
 
     const [x, y] = [
-        (window.innerWidth * (elem.position[0] + 1)) / 2,
-        (window.innerHeight * (elem.position[1] + 1)) / 2,
+        (document.body.clientWidth * (elem.position[0] + 1)) / 2,
+        (document.body.clientHeight * (elem.position[1] + 1)) / 2,
     ];
     const [anchorX, anchorY] = [
         (elem.anchor[0] + 1) / 2,
@@ -58,33 +61,32 @@ function createPhysicalElement(elem) {
     phys.style.position = "absolute";
     phys.style.left = `${x}px`;
     phys.style.top = `${y}px`;
-    phys.style.transform = `translate(${-anchorX * 100}%, ${
-        -anchorY * 100
-    }%)`;
+    phys.style.transform = `translate(${-anchorX * 100}%, ${-anchorY * 100}%)`;
     phys.style.opacity = elem.opacity ?? 0;
     
     switch (elem.type) {
         case Element.Text:
-            if (elem.max_width ?? 1) phys.style.maxWidth = `${elem.max_width * window.innerWidth}px`;
-            if (elem.max_height ?? 1) phys.style.maxHeight = `${elem.max_height * window.innerHeight}px`;
+            if (elem.max_width !== undefined) phys.style.maxWidth = `${elem.max_width * document.body.clientWidth}px`;
+            if (elem.max_height !== undefined) phys.style.maxHeight = `${elem.max_height * document.body.clientHeight}px`;
 
             phys.style.fontFamily = "sans-serif";
-            phys.style.fontSize = `${elem.font_size * 24 * window.innerHeight / 720}px`;
+            phys.style.fontSize = `${elem.font_size * 24 * document.body.clientHeight / 720}px`;
             phys.style.textAlign = elem.text_align ?? "center";
+            phys.style.whiteSpace = "pre";
             phys.innerText = elem.value;
 
             phys.style.color = elem.color;
             break;
         case Element.Rectangle:
             phys.style.backgroundColor = elem.color;
-            phys.style.width = `${elem.size[0] * window.innerWidth}px`;
-            phys.style.height = `${elem.size[1] * window.innerHeight}px`;
-            phys.style.borderRadius = `${elem.border_radius * window.innerHeight}px`;
+            phys.style.width = `${elem.size[0] * document.body.clientWidth}px`;
+            phys.style.height = `${elem.size[1] * document.body.clientHeight}px`;
+            phys.style.borderRadius = `${elem.border_radius * document.body.clientHeight}px`;
             break;
         case Element.Image:
             phys.src = elem.path;
-            phys.style.width = `${elem.size[0] * window.innerWidth}px`;
-            phys.style.height = `${elem.size[1] * window.innerHeight}px`;
+            phys.style.width = `${elem.size[0] * document.body.clientWidth}px`;
+            phys.style.height = `${elem.size[1] * document.body.clientHeight}px`;
             break;
     }
     
@@ -125,63 +127,64 @@ function getAnimatedSlide(slide) {
         let curved_t = anim.curve(t);
         let deep_element = deep.elements[anim.element];
         switch (anim.type) {
-            case Animation.FadeIn:
+            case Action.FadeIn:
                 deep_element.opacity = curved_t;
                 break;
-            case Animation.FadeOut:
+            case Action.FadeOut:
                 deep_element.opacity = 1 - curved_t;
                 break;
-            case Animation.SlideIn:
+            case Action.SlideIn:
                 switch (anim.direction) {
-                    case Direction.Up:
+                    case Cardinal.North:
                         deep_element.anchor[1] = deep_element.anchor[1] * curved_t + (1 - curved_t);
                         deep_element.position[1] = deep_element.position[1] * curved_t - 1.1 * (1 - curved_t);
                         break;
-                    case Direction.Down:
+                    case Cardinal.South:
                         deep_element.anchor[1] = deep_element.anchor[1] * curved_t - (1 - curved_t);
                         deep_element.position[1] = deep_element.position[1] * curved_t + 1.1 * (1 - curved_t);
                         break;
-                    case Direction.Left:
+                    case Cardinal.West:
                         deep_element.anchor[0] = deep_element.anchor[0] * curved_t + (1 - curved_t);
                         deep_element.position[0] = deep_element.position[0] * curved_t - 1.1 * (1 - curved_t);
                         break;
-                    case Direction.Right:
+                    case Cardinal.East:
                         deep_element.anchor[0] = deep_element.anchor[0] * curved_t - (1 - curved_t);
                         deep_element.position[0] = deep_element.position[0] * curved_t + 1.1 * (1 - curved_t);
                         break;
                     default: console.error("Unknown direction:", anim.direction); break;
                 }
                 break;
-            case Animation.SlideOut:
+            case Action.SlideOut:
+                if (t >= 1) deep_element.opacity = 0;
                 switch (anim.direction) {
-                    case Direction.Up:
+                    case Cardinal.North:
                         deep_element.anchor[1] = deep_element.anchor[1] * (1 - curved_t) + curved_t;
                         deep_element.position[1] = deep_element.position[1] * (1 - curved_t) - 1.1 * curved_t;
                         break;
-                    case Direction.Down:
+                    case Cardinal.South:
                         deep_element.anchor[1] = deep_element.anchor[1] * (1 - curved_t) - curved_t;
                         deep_element.position[1] = deep_element.position[1] * (1 - curved_t) + 1.1 * curved_t;
                         break;
-                    case Direction.Left:
+                    case Cardinal.West:
                         deep_element.anchor[0] = deep_element.anchor[0] * (1 - curved_t) + curved_t;
                         deep_element.position[0] = deep_element.position[0] * (1 - curved_t) - 1.1 * curved_t;
                         break;
-                    case Direction.Right:
+                    case Cardinal.East:
                         deep_element.anchor[0] = deep_element.anchor[0] * (1 - curved_t) - curved_t;
                         deep_element.position[0] = deep_element.position[0] * (1 - curved_t) + 1.1 * curved_t;
                         break;
                     default: console.error("Unknown direction:", anim.direction); break;
                 }
                 break;
-            case Animation.Show:
+            case Action.Show:
                 deep_element.opacity = 1;
                 finished = true;
                 break;
-            case Animation.Hide:
+            case Action.Hide:
                 deep_element.opacity = 0;
                 finished = true;
                 break;
-            case Animation.Move:
+            case Action.Move:
                 if ("destination" in anim) {
                     deep_element.position = [
                         deep_element.position[0] * (1 - curved_t) + anim.destination[0] * curved_t,
@@ -195,7 +198,7 @@ function getAnimatedSlide(slide) {
                     ];
                 }
                 break;
-            case Animation.Resize:
+            case Action.Resize:
                 if ("font_size" in anim) {
                     deep_element.font_size = deep_element.font_size * (1 - curved_t) + anim.font_size * curved_t;
                 }
@@ -225,6 +228,7 @@ function advance() {
 function fastForward() {
     for (let anim of keyframe_queue) {
         anim.duration = 0;
+        anim.start_time = performance.now();
     }
 }
 
@@ -235,7 +239,27 @@ document.onkeydown = (e) => {
 }
 
 window.onresize = () => {
+    resizeBody();
     force_draw = true;
     draw();
 };
 window.requestAnimationFrame(draw);
+
+function resizeBody() {
+    let width, height;
+    if (window.innerWidth / window.innerHeight > 16 / 9) {
+      height = window.innerHeight;
+      width = (height * 16) / 9;
+    } else {
+      width = window.innerWidth;
+      height = (width * 9) / 16;
+    }
+    [
+        document.body.style.width,
+        document.body.style.height
+    ] = [`${width}px`, `${height}px`];
+    document.body.style.position = "absolute";
+    document.body.style.left = `${(window.innerWidth - width) / 2}px`;
+    document.body.style.top = `${(window.innerHeight - height) / 2}px`;
+    document.body.style.zIndex = -Number.MAX_SAFE_INTEGER;
+}

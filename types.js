@@ -6,7 +6,7 @@ const Element = Object.freeze({
     Code: 4,
 });
 
-const Animation = Object.freeze({
+const Action = Object.freeze({
     Show: 0,
     Hide: 1,
     FadeIn: 2,
@@ -31,9 +31,9 @@ const Color = Object.freeze({
     Yellow: "#F1FA8C",
 });
 
-const Direction = Object.freeze({
-    Up: 0,
-    Down: 1,
-    Left: 2,
-    Right: 3,
+const Cardinal = Object.freeze({
+    North: 0,
+    South: 1,
+    West: 2,
+    East: 3,
 });
