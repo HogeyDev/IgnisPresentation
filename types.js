@@ -1,4 +1,4 @@
-const Element = Object.freeze({
+const Component = Object.freeze({
     Text: 0,
     Image: 1,
     Rectangle: 2,
@@ -18,6 +18,7 @@ const Action = Object.freeze({
 });
 
 const Color = Object.freeze({
+    None: "#00000000",
     Background: "#282A36",
     CurrentLine: "#44475A",
     Foreground: "#F8F8F2",

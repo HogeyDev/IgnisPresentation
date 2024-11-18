@@ -1,6 +1,3 @@
-// import { slide as title } from "./slides/title.js";
-// import { Animation, Color, Element } from "./types.js";
-
 const SLIDES = 1;
 
 window.onload = () => {
@@ -23,14 +20,13 @@ function draw() {
     if (keyframe_queue.length > 0 || force_draw) {
         force_draw = false;
         const display_slide = getAnimatedSlide(current_slide);
-        // console.log(display_slide);
         document.body.innerHTML = "<div class=\"counter\"></div>";
         document.body.style.backgroundColor =
             display_slide.background ?? Color.Background;
         document.documentElement.style.backgroundColor = "#000000";
         for (const elem of display_slide.elements) {
             if (elem.opacity <= 0 || elem.opacity === undefined) continue;
-            const html_element = createPhysicalElement(elem);
+            const html_element = createPhysicalComponent(elem);
             document.body.appendChild(html_element);
         }
         const counter = document.querySelector(".counter");
@@ -47,8 +43,8 @@ function draw() {
     window.requestAnimationFrame(draw);
 }
 
-function createPhysicalElement(elem) {
-    let phys = document.createElement(elem.type == Element.Image ? "img" : "div");
+function createPhysicalComponent(elem) {
+    let phys = document.createElement(elem.type == Component.Image ? "img" : "div");
 
     const [x, y] = [
         (document.body.clientWidth * (elem.position[0] + 1)) / 2,
@@ -63,9 +59,11 @@ function createPhysicalElement(elem) {
     phys.style.top = `${y}px`;
     phys.style.transform = `translate(${-anchorX * 100}%, ${-anchorY * 100}%)`;
     phys.style.opacity = elem.opacity ?? 0;
+
+    phys.style.border = `${(elem.border_size ?? 0) * document.body.clientHeight}px solid ${elem.border_color ?? Color.None}`;
     
     switch (elem.type) {
-        case Element.Text:
+        case Component.Text:
             if (elem.max_width !== undefined) phys.style.maxWidth = `${elem.max_width * document.body.clientWidth}px`;
             if (elem.max_height !== undefined) phys.style.maxHeight = `${elem.max_height * document.body.clientHeight}px`;
 
@@ -73,17 +71,17 @@ function createPhysicalElement(elem) {
             phys.style.fontSize = `${elem.font_size * 24 * document.body.clientHeight / 720}px`;
             phys.style.textAlign = elem.text_align ?? "center";
             phys.style.whiteSpace = "pre";
-            phys.innerText = elem.value;
+            phys.innerHTML = elem.value;
 
             phys.style.color = elem.color;
             break;
-        case Element.Rectangle:
+        case Component.Rectangle:
             phys.style.backgroundColor = elem.color;
             phys.style.width = `${elem.size[0] * document.body.clientWidth}px`;
             phys.style.height = `${elem.size[1] * document.body.clientHeight}px`;
             phys.style.borderRadius = `${elem.border_radius * document.body.clientHeight}px`;
             break;
-        case Element.Image:
+        case Component.Image:
             phys.src = elem.path;
             phys.style.width = `${elem.size[0] * document.body.clientWidth}px`;
             phys.style.height = `${elem.size[1] * document.body.clientHeight}px`;
@@ -99,7 +97,6 @@ function createPhysicalElement(elem) {
 
 const keyframe_queue = [];
 function addKeyframe(index) {
-    // console.log("Populated keyframe queue");
     for (const anim of current_slide.keyframes[index]) {
         keyframe_queue.push({
             ...anim,
