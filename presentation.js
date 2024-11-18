@@ -10,11 +10,8 @@ const presentation = {
             color: Color.Red,
             position: [0, -0.2],
             anchor: [0, 0],
-            style_overrides: {
-                background: `linear-gradient(to right, ${Color.Red}, ${Color.Orange})`,
-                backgroundClip: "text",
-                webkitTextFillColor: "transparent",
-            }
+            gradient: [Color.Red, Color.Orange],
+            gradient_direction: "to right",
         },
         {
             type: Component.Text,
@@ -23,11 +20,8 @@ const presentation = {
             color: Color.Comment,
             position: [0, -0.4],
             anchor: [0, 0],
-            style_overrides: {
-                background: `linear-gradient(to bottom right, ${Color.Comment}, ${Color.Foreground})`,
-                backgroundClip: "text",
-                webkitTextFillColor: "transparent",
-            }
+            gradient: [Color.Comment, Color.Foreground],
+            gradient_direction: "to bottom right",
         },
         {
             type: Component.Text,
@@ -37,19 +31,18 @@ const presentation = {
             position: [0, 0.15],
             anchor: [0, 0],
             max_width: 0.3,
+            gradient: [Color.Comment, Color.Foreground],
+            gradient_direction: "to top right",
             style_overrides: {
-                background: `linear-gradient(to top right, ${Color.Comment}, ${Color.Foreground})`,
-                backgroundClip: "text",
-                webkitTextFillColor: "transparent",
                 whiteSpace: "normal",
-            }
+            },
         },
         {
             type: Component.Image,
             path: "./binary_file.png",
             position: [0, 0],
             anchor: [0, 0],
-            size: [0.1 * 9/16, 0.1],
+            size: [(0.1 * 9) / 16, 0.1],
         },
         {
             type: Component.Rectangle,
@@ -64,7 +57,7 @@ const presentation = {
             path: "./denied.png",
             position: [0, 0],
             anchor: [0, 0],
-            size: [0.6 * 9/16, 0.6],
+            size: [(0.6 * 9) / 16, 0.6],
             style_overrides: {
                 zIndex: 10,
             },
@@ -74,14 +67,14 @@ const presentation = {
             path: "./python_logo.png",
             position: [0, 0],
             anchor: [0, 0],
-            size: [0.6 * 9/16, 0.6],
+            size: [(0.6 * 9) / 16, 0.6],
         },
         {
             type: Component.Image,
             path: "./c_logo.png",
             position: [0, 0],
             anchor: [0, 0],
-            size: [0.5 * 9/16 * 798 / 881, 0.5],
+            size: [(((0.5 * 9) / 16) * 798) / 881, 0.5],
         },
         {
             type: Component.Text,
@@ -90,11 +83,8 @@ const presentation = {
             color: Color.Cyan,
             position: [0, 0],
             anchor: [0, 0],
-            style_overrides: {
-                background: `linear-gradient(to top right, ${Color.Cyan}, ${Color.Foreground})`,
-                backgroundClip: "text",
-                webkitTextFillColor: "transparent",
-            },
+            gradient: [Color.Cyan, Color.Foreground],
+            gradient_direction: "to top right",
         },
         {
             type: Component.Rectangle,
@@ -127,11 +117,8 @@ const presentation = {
             font_size: 3,
             position: [-0.6, 0],
             anchor: [0, 0],
-            style_overrides: {
-                background: `linear-gradient(to top right, ${Color.Purple}, ${Color.Green})`,
-                backgroundClip: "text",
-                webkitTextFillColor: "transparent",
-            },
+            gradient: [Color.Purple, Color.Green],
+            gradient_direction: "to top right",
         },
         {
             type: Component.Text,
@@ -140,11 +127,8 @@ const presentation = {
             font_size: 3,
             position: [0, 0],
             anchor: [0, 0],
-            style_overrides: {
-                background: `linear-gradient(to top right, ${Color.Green}, ${Color.Cyan})`,
-                backgroundClip: "text",
-                webkitTextFillColor: "transparent",
-            },
+            gradient: [Color.Green, Color.Cyan],
+            gradient_direction: "to top right",
         },
         {
             type: Component.Text,
@@ -153,40 +137,32 @@ const presentation = {
             font_size: 2.7,
             position: [0.6, 0],
             anchor: [0, 0],
-            style_overrides: {
-                background: `linear-gradient(to top right, ${Color.Cyan}, ${Color.Foreground})`,
-                backgroundClip: "text",
-                webkitTextFillColor: "transparent",
-            },
+            gradient: [Color.Cyan, Color.Foreground],
+            gradient_direction: "to top right",
         },
         {
             type: Component.Text,
-            value: "import stdio;\n// comments are skipped\nfunc main(int) {\n\tprintln(\"Hello, World!\");\n\treturn 0;\n}",
+            value: 'import stdio;\n// comments are skipped\nfunc main(int) {\n\tprintln("Hello, World!");\n\treturn 0;\n}',
             color: Color.Purple,
             font_size: 1,
             position: [-0.9, 0],
             anchor: [-1, 0],
+            gradient: [Color.Purple, Color.Orange],
+            gradient_direction: "to top right",
             style_overrides: {
                 textAlign: "left",
-                background: `linear-gradient(to top right, ${Color.Purple}, ${Color.Orange})`,
-                backgroundClip: "text",
-                webkitTextFillColor: "transparent",
             },
         },
         {
             type: Component.Text,
-            value: "Import { \"import\" }\nIdentifier { \"stdio\" }\nSemiColon { \";\" }\nFunction { \"func\" }\nIdentifier { \"main\" }\nLeftParenthesis { \"(\" }\nIdentifier { \"int\" }\nRightParenthesis { \")\" }\nLeftBrace { \"{\" }\nIdentifier { \"println\" }\nLeftParenthesis { \"(\" }\nString { \"Hello, World!\" }\nRightParenthesis { \")\" }\nSemiColon { \";\" }\nReturn { \"return\" }\nInteger { \"0\" }\nSemiColon { \";\" }\nRightBrace { \"}\" }",
+            value: 'Import { "import" }\nIdentifier { "stdio" }\nSemiColon { ";" }\nFunction { "func" }\nIdentifier { "main" }\nLeftParenthesis { "(" }\nIdentifier { "int" }\nRightParenthesis { ")" }\nLeftBrace { "{" }\nIdentifier { "println" }\nLeftParenthesis { "(" }\nString { "Hello, World!" }\nRightParenthesis { ")" }\nSemiColon { ";" }\nReturn { "return" }\nInteger { "0" }\nSemiColon { ";" }\nRightBrace { "}" }',
             color: Color.Purple,
             font_size: 1,
             position: [0.6, 0],
             anchor: [-0.5, 0],
             max_width: 1,
-            style_overrides: {
-                // textAlign: "right",
-                background: `linear-gradient(to top right, ${Color.Cyan}, ${Color.Purple})`,
-                backgroundClip: "text",
-                webkitTextFillColor: "transparent",
-            }
+            gradient: [Color.Cyan, Color.Purple],
+            gradient_direction: "to top right",
         },
         {
             type: Component.Rectangle,
@@ -197,7 +173,7 @@ const presentation = {
             anchor: [-0.9, 0],
             style_overrides: {
                 zIndex: -1,
-            }
+            },
         },
         {
             type: Component.Rectangle,
@@ -208,7 +184,7 @@ const presentation = {
             anchor: [-0.4, 0],
             style_overrides: {
                 zIndex: -1,
-            }
+            },
         },
         {
             type: Component.Rectangle,
@@ -238,17 +214,16 @@ const presentation = {
         },
         {
             type: Component.Text,
-            value: "Import {\n\tmodule: \"stdio\",\n},\nFunctionDeclaration {\n\tname: \"main\",\n\treturn_type: \"int\",\n\tprototype: [],\n\tbody: Block(\n\t\t[\n\t\t\tFunctionCall {\n\t\t\t\tname: \"println\",\n\t\t\t\targuments: [\n\t\t\t\t\tArgument(\n\t\t\t\t\t\tString(\n\t\t\t\t\t\t\t\"Hello, World!\",\n\t\t\t\t\t\t),\n\t\t\t\t\t),\n\t\t\t\t],\n\t\t\t},\n\t\t\tReturn(\n\t\t\t\tInteger(\n\t\t\t\t\t0,\n\t\t\t\t),\n\t\t\t),\n\t\t],\n\t),\n},",
+            value: 'Import {\n\tmodule: "stdio",\n},\nFunctionDeclaration {\n\tname: "main",\n\treturn_type: "int",\n\tprototype: [],\n\tbody: Block(\n\t\t[\n\t\t\tFunctionCall {\n\t\t\t\tname: "println",\n\t\t\t\targuments: [\n\t\t\t\t\tArgument(\n\t\t\t\t\t\tString(\n\t\t\t\t\t\t\t"Hello, World!",\n\t\t\t\t\t\t),\n\t\t\t\t\t),\n\t\t\t\t],\n\t\t\t},\n\t\t\tReturn(\n\t\t\t\tInteger(\n\t\t\t\t\t0,\n\t\t\t\t),\n\t\t\t),\n\t\t],\n\t),\n},',
             font_size: 0.8,
             color: Color.Red,
             position: [0.27, 0],
             anchor: [0, 0],
+            gradient: [Color.Red, Color.Purple],
+            gradient_direction: "to bottom right",
             style_overrides: {
                 textAlign: "left",
-                background: `linear-gradient(to bottom right, ${Color.Red}, ${Color.Purple})`,
-                backgroundClip: "text",
-                webkitTextFillColor: "transparent",
-            }
+            },
         },
     ],
     keyframes: [
@@ -271,7 +246,7 @@ const presentation = {
         ],
         [
             { element: 5, type: Action.FadeIn },
-            { element: 5, type: Action.Resize, size: [0.3 * 9/16, 0.3] },
+            { element: 5, type: Action.Resize, size: [(0.3 * 9) / 16, 0.3] },
         ],
         [
             { element: 5, type: Action.SlideOut, direction: Cardinal.East },
@@ -292,10 +267,10 @@ const presentation = {
             { element: 0, type: Action.Move, destination: [-0.35, 0], anchor: [1, 0], delay: 0.4 },
             { element: 0, type: Action.Move, destination: [0, 0], anchor: [0, 0], delay: 1.5, duration: 0.5 },
             { element: 0, type: Action.Resize, font_size: 1.5, delay: 1.5, duration: 0.5 },
-            
+
             { element: 0, type: Action.Hide, delay: 2.5 },
             { element: 3, type: Action.Show, delay: 1.5 },
-            { element: 3, type: Action.Resize, size: [0.2 * 9/16, 0.2], delay: 1.75, duration: 0.5 },
+            { element: 3, type: Action.Resize, size: [(0.2 * 9) / 16, 0.2], delay: 1.75, duration: 0.5 },
             { element: 3, type: Action.Move, destination: [0.35, 0], anchor: [-1, 0], delay: 1.75, duration: 0.5 },
         ],
         [
@@ -307,11 +282,29 @@ const presentation = {
             { element: 8, type: Action.FadeOut },
 
             { element: 11, type: Action.FadeIn, delay: 1.1 },
-            { element: 11, type: Action.SlideIn, direction: Cardinal.West, delay: 1.1, time_curve: (t) => 1 - Math.pow(1 - t, 4) },
+            {
+                element: 11,
+                type: Action.SlideIn,
+                direction: Cardinal.West,
+                delay: 1.1,
+                time_curve: (t) => 1 - Math.pow(1 - t, 4),
+            },
             { element: 10, type: Action.FadeIn, delay: 1.3 },
-            { element: 10, type: Action.SlideIn, direction: Cardinal.West, delay: 1.3, time_curve: (t) => 1 - Math.pow(1 - t, 4) },
+            {
+                element: 10,
+                type: Action.SlideIn,
+                direction: Cardinal.West,
+                delay: 1.3,
+                time_curve: (t) => 1 - Math.pow(1 - t, 4),
+            },
             { element: 9, type: Action.FadeIn, delay: 1.5 },
-            { element: 9, type: Action.SlideIn, direction: Cardinal.West, delay: 1.5, time_curve: (t) => 1 - Math.pow(1 - t, 4) },
+            {
+                element: 9,
+                type: Action.SlideIn,
+                direction: Cardinal.West,
+                delay: 1.5,
+                time_curve: (t) => 1 - Math.pow(1 - t, 4),
+            },
 
             { element: 12, type: Action.FadeIn, delay: 2.2, duration: 0.7 },
             { element: 13, type: Action.FadeIn, delay: 2.3, duration: 0.7 },
@@ -326,7 +319,7 @@ const presentation = {
             { element: 9, type: Action.Move, destination: [-0.8, -0.8], delay: 0.2 },
             { element: 9, type: Action.Resize, size: [0.15, 0.15], delay: 0.2 },
             { element: 12, type: Action.Move, destination: [-0.8, -0.8], delay: 0.2 },
-            { element: 12, type: Action.Resize, font_size: 9/5, delay: 0.2 },
+            { element: 12, type: Action.Resize, font_size: 9 / 5, delay: 0.2 },
         ],
         [
             { element: 15, type: Action.FadeIn },
@@ -392,7 +385,7 @@ const presentation = {
             { duration: 0, element: 10, type: Action.Resize, size: [0.15, 0.15] },
             { element: 13, type: Action.Show, delay: 0.6 },
             { duration: 0, element: 13, type: Action.Move, destination: [-0.8, -0.8] },
-            { duration: 0, element: 13, type: Action.Resize, font_size: 9/5 },
+            { duration: 0, element: 13, type: Action.Resize, font_size: 9 / 5 },
 
             { element: 10, type: Action.SlideIn, direction: Cardinal.East, delay: 0.6 },
             { element: 13, type: Action.SlideIn, direction: Cardinal.East, delay: 0.6 },
@@ -402,6 +395,6 @@ const presentation = {
 
             { element: 22, type: Action.FadeIn, delay: 0.7 },
             { element: 22, type: Action.SlideIn, direction: Cardinal.East, delay: 0.7 },
-        ]
+        ],
     ],
 };

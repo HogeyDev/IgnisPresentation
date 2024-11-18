@@ -1,5 +1,3 @@
-const SLIDES = 1;
-
 window.onload = () => {
     resizeBody();
     force_draw = true;
@@ -72,8 +70,13 @@ function createPhysicalComponent(elem) {
             phys.style.textAlign = elem.text_align ?? "center";
             phys.style.whiteSpace = "pre";
             phys.innerHTML = elem.value;
-
             phys.style.color = elem.color;
+            if(elem.gradient !== undefined) {
+                phys.style.background = `linear-gradient(${elem.gradient_direction}, ${elem.gradient[0]}, ${elem.gradient[1]})`;
+                phys.style.backgroundClip = "text";
+                phys.style.webkitTextFillColor = "transparent";
+            }
+            
             break;
         case Component.Rectangle:
             phys.style.backgroundColor = elem.color;
