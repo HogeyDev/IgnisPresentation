@@ -58,9 +58,7 @@ const presentation = {
             position: [0, 0],
             anchor: [0, 0],
             size: [(0.6 * 9) / 16, 0.6],
-            style_overrides: {
-                zIndex: 10,
-            },
+            layer: 10,
         },
         {
             type: Component.Image,
@@ -171,9 +169,7 @@ const presentation = {
             size: [0, 0],
             position: [-0.9, 0],
             anchor: [-0.9, 0],
-            style_overrides: {
-                zIndex: -1,
-            },
+            layer: -1,
         },
         {
             type: Component.Rectangle,
@@ -182,9 +178,7 @@ const presentation = {
             size: [0, 0],
             position: [0.6, 0],
             anchor: [-0.4, 0],
-            style_overrides: {
-                zIndex: -1,
-            },
+            layer: -1,
         },
         {
             type: Component.Rectangle,

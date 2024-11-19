@@ -3,13 +3,16 @@ window.onload = () => {
     force_draw = true;
     loadSlide(presentation);
     draw();
+
 };
 
+let slide_counter;
 let keyframe = 0;
 let keyframe_counter = 0;
 let current_slide = null;
 function loadSlide(slide) {
     current_slide = slide;
+    slide_counter = current_slide.slide_counter ?? true;
     addKeyframe(0);
 }
 
@@ -20,22 +23,24 @@ function draw() {
         const display_slide = getAnimatedSlide(current_slide);
         document.body.innerHTML = "<div class=\"counter\"></div>";
         document.body.style.backgroundColor =
-            display_slide.background ?? Color.Background;
+            display_slide.background_color ?? Color.Background;
         document.documentElement.style.backgroundColor = "#000000";
         for (const elem of display_slide.elements) {
             if (elem.opacity <= 0 || elem.opacity === undefined) continue;
             const html_element = createPhysicalComponent(elem);
             document.body.appendChild(html_element);
         }
-        const counter = document.querySelector(".counter");
-        counter.style.fontSize = "36px";
-        counter.style.color = Color.Foreground;
-        counter.style.fontFamily = "sans-serif";
-        counter.style.position = "absolute";
-        counter.style.left = `${document.body.clientWidth}px`;
-        counter.style.top = `${document.body.clientHeight}px`;
-        counter.style.transform = "translate(-100%, -100%)";
-        counter.innerText = keyframe_counter;
+        if (slide_counter) {
+            const counter = document.querySelector(".counter");
+            counter.style.fontSize = "36px";
+            counter.style.fontFamily = "sans-serif";
+            counter.style.color = Color.Foreground;
+            counter.style.left = `${document.body.clientWidth}px`;
+            counter.style.position = "absolute";
+            counter.style.transform = "translate(-100%, -100%)";
+            counter.style.top = `${document.body.clientHeight}px`;
+            counter.innerText = keyframe_counter;
+        }
     }
 
     window.requestAnimationFrame(draw);
@@ -71,6 +76,7 @@ function createPhysicalComponent(elem) {
             phys.style.whiteSpace = "pre";
             phys.innerHTML = elem.value;
             phys.style.color = elem.color;
+            phys.style.zIndex = elem.layer ?? 0;
             if(elem.gradient !== undefined) {
                 phys.style.background = `linear-gradient(${elem.gradient_direction}, ${elem.gradient[0]}, ${elem.gradient[1]})`;
                 phys.style.backgroundClip = "text";
@@ -83,11 +89,17 @@ function createPhysicalComponent(elem) {
             phys.style.width = `${elem.size[0] * document.body.clientWidth}px`;
             phys.style.height = `${elem.size[1] * document.body.clientHeight}px`;
             phys.style.borderRadius = `${elem.border_radius * document.body.clientHeight}px`;
+            phys.style.zIndex = elem.layer ?? 0;
+            if (elem.gradient !== undefined ) { //Posibly add case to check if backround color is set
+                phys.style.background = `linear-gradient(${elem.gradient_direction}, ${elem.gradient[0]}, ${elem.gradient[1]})`;
+            }
             break;
         case Component.Image:
             phys.src = elem.path;
             phys.style.width = `${elem.size[0] * document.body.clientWidth}px`;
             phys.style.height = `${elem.size[1] * document.body.clientHeight}px`;
+            phys.style.borderRadius = `${elem.border_radius * document.body.clientHeight}px`;
+            phys.style.zIndex = elem.layer ?? 0;
             break;
     }
     
