@@ -5,12 +5,17 @@ window.onload = () => {
     draw();
 };
 
+let original_state = JSON.parse(JSON.stringify(presentation));
+
 let slide_counter;
-let keyframe = 0;
-let keyframe_counter = 0;
+let keyframe;
+let keyframe_counter;
 let current_slide = null;
 function loadSlide(slide) {
     current_slide = slide;
+    keyframe = 0;
+    keyframe_counter = 0;
+    elementNames = {};
     for (let i = 0; i < current_slide.elements.length; i++) {
         const elem = current_slide.elements[i];
         if ("name" in elem) {
@@ -268,10 +273,29 @@ function fastForward() {
     }
 }
 
+function skip_n_slides(n) {
+    for (let i = 0; i < n; i++) {
+        fastForward();
+        draw();
+        advance();
+    }
+}
+
+function skip_to_slide(n) {
+    loadSlide(original_state);
+    draw();
+    skip_n_slides(n - 1);
+}
+
 document.onmousedown = advance;
 
 document.onkeydown = (e) => {
+    // if (e.key == "ArrowLeft") skip_to_slide(keyframe_counter - 1);
     if (e.key == "ArrowRight") advance();
+
+    if (e.key == "s") skip_n_slides(parseInt(prompt("How many slides to skip?")));
+    if (e.key == " ") skip_to_slide(parseInt(prompt("Which slide?")));
+
 }
 
 window.onresize = () => {

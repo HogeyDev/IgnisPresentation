@@ -121,6 +121,7 @@ const presentation = {
         },
         {
             type: Component.Text,
+            name: "lexer_text",
             value: "Lexer",
             color: Color.Red,
             font_size: 3,
@@ -131,6 +132,7 @@ const presentation = {
         },
         {
             type: Component.Text,
+            name: "parser_text",
             value: "Parser",
             color: Color.Green,
             font_size: 3,
@@ -141,6 +143,7 @@ const presentation = {
         },
         {
             type: Component.Text,
+            name: "codegen_text",
             value: "CodeGen",
             color: Color.Cyan,
             font_size: 2.7,
@@ -248,6 +251,16 @@ const presentation = {
                 textAlign: "left",
             },
         },
+        {
+            type: Component.Text,
+            name: "simple_ast_source",
+            value: "let x: int = 42;",
+            font_size: 3.0,
+            gradient: [Color.Pink, Color.Orange],
+            gradient_direction: "to top right",
+            position: [0, 0],
+            anchor: [0, 0],
+        },
     ],
     keyframes: [
         [],
@@ -330,12 +343,12 @@ const presentation = {
             },
 
             { element: 12, type: Action.FadeIn, delay: 2.2, duration: 0.7 },
-            { element: 13, type: Action.FadeIn, delay: 2.3, duration: 0.7 },
+            { name: "parser_text", type: Action.FadeIn, delay: 2.3, duration: 0.7 },
             { element: 14, type: Action.FadeIn, delay: 2.4, duration: 0.7 },
         ],
         [
             { element: 10, type: Action.FadeOut, duration: 0.5 },
-            { element: 13, type: Action.FadeOut, duration: 0.5 },
+            { name: "parser_text", type: Action.FadeOut, duration: 0.5 },
             { element: 11, type: Action.FadeOut, duration: 0.5 },
             { element: 14, type: Action.FadeOut, duration: 0.5 },
 
@@ -371,12 +384,12 @@ const presentation = {
             { element: 10, type: Action.Show, delay: 0.6 },
             { duration: 0, element: 10, type: Action.Move, destination: [-0.8, -0.8] },
             { duration: 0, element: 10, type: Action.Resize, size: [0.15, 0.15] },
-            { element: 13, type: Action.Show, delay: 0.6 },
-            { duration: 0, element: 13, type: Action.Move, destination: [-0.8, -0.8] },
-            { duration: 0, element: 13, type: Action.Resize, font_size: 9 / 5 },
+            { name: "parser_text", type: Action.Show, delay: 0.6 },
+            { duration: 0, name: "parser_text", type: Action.Move, destination: [-0.8, -0.8] },
+            { duration: 0, name: "parser_text", type: Action.Resize, font_size: 9 / 5 },
 
             { element: 10, type: Action.SlideIn, direction: Cardinal.East, delay: 0.6 },
-            { element: 13, type: Action.SlideIn, direction: Cardinal.East, delay: 0.6 },
+            { name: "parser_text", type: Action.SlideIn, direction: Cardinal.East, delay: 0.6 },
 
             { element: 19, type: Action.FadeIn, delay: 0.7 },
             { element: 19, type: Action.SlideIn, direction: Cardinal.East, delay: 0.7 },
@@ -385,24 +398,35 @@ const presentation = {
             { element: 20, type: Action.SlideIn, direction: Cardinal.East, delay: 0.7 },
         ],
         [
-            { element: 16, type: Action.SlideOut, direction: Cardinal.West, duration: 0.4 },
-            { element: 18, type: Action.SlideOut, direction: Cardinal.West, duration: 0.4 },
+            { element: 16, type: Action.SlideOut, direction: Cardinal.West, duration: 0.6 },
+            { element: 18, type: Action.SlideOut, direction: Cardinal.West, duration: 0.6 },
 
-            { element: 19, type: Action.FadeOut, duration: 0.4 },
-            { element: 20, type: Action.FadeOut, duration: 0.4 },
+            { element: 19, type: Action.FadeOut, duration: 0.6 },
+            { element: 20, type: Action.FadeOut, duration: 0.6 },
 
-            { name: "simple_ast_decl", type: Action.Show, delay: 0.3 },
-            { name: "simple_ast_assign", type: Action.Show, delay: 0.3 },
-            { name: "simple_ast_block", type: Action.Show, delay: 0.3 },
-
-            { name: "simple_ast_decl", type: Action.SlideIn, direction: Cardinal.North, time_curve: (t) => 1 - Math.pow(1 - t, 2), delay: 0.3 },
-            { name: "simple_ast_assign", type: Action.SlideIn, direction: Cardinal.South, time_curve: (t) => 1 - Math.pow(1 - t, 2), delay: 0.3 },
-            { name: "simple_ast_block", type: Action.SlideIn, direction: Cardinal.West, time_curve: (t) => 1 - Math.pow(1 - t, 2), delay: 0.3 },
+            { name: "simple_ast_source", type: Action.FadeIn, delay: 0.4 },
         ],
         [
-            { name: "simple_ast_assign", type: Action.FadeOut },
+            { name: "simple_ast_source", type: Action.Move, destination: [0, -0.8], duration: 0.8 },
+            { name: "simple_ast_source", type: Action.Resize, font_size: 2.0 },
+
+            { name: "simple_ast_decl", type: Action.FadeIn, delay: 0.3 },
+            { name: "simple_ast_assign", type: Action.FadeIn, delay: 0.3 },
+            { name: "simple_ast_block", type: Action.FadeIn, delay: 0.3 },
+        ],
+        [
+            { name: "simple_ast_block", type: Action.FadeOut, duration: 0.5 },
             { name: "simple_ast_decl", type: Action.Move, destination: [-0.3, 0], anchor: [0, 0], delay: 0.3 },
             { name: "simple_ast_assign", type: Action.Move, destination: [0.3, 0], anchor: [0, 0], delay: 0.3 },
         ],
+        [
+            { name: "parser_text", type: Action.Move, destination: [-0.8, -0.7], duration: 0.5 },
+            { name: "parser_text", type: Action.FadeOut, duration: 0.7 },
+
+            { duration: 0, name: "codegen_text", type: Action.Resize, font_size: 9 / 5 },
+            { duration: 0, name: "codegen_text", type: Action.Move, destination: [-0.8, -0.9] },
+            { name: "codegen_text", type: Action.Move, destination: [-0.8, -0.8], duration: 0.5 },
+            { name: "codegen_text", type: Action.FadeIn, duration: 0.5 },
+        ]
     ],
 };
