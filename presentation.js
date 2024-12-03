@@ -212,6 +212,42 @@ const presentation = {
                 textAlign: "left",
             },
         },
+        {
+            type: Component.Text,
+            name: "simple_ast_decl",
+            value: 'VariableDeclaration {\n\tvariable_type: "int",\n\tname: "x",\n\tis_static: false\n}',
+            font_size: 1.0,
+            color: Color.Orange,
+            position: [-0.18, 0],
+            anchor: [-1, 1],
+            style_overrides: {
+                textAlign: "left",
+            }
+        },
+        {
+            type: Component.Text,
+            name: "simple_ast_assign",
+            value: 'VariableAssignment {\n\tname: "x",\n\tvalue: Integer(42)\n}',
+            font_size: 1.0,
+            color: Color.Orange,
+            position: [-0.18, 0],
+            anchor: [-1, -1],
+            style_overrides: {
+                textAlign: "left",
+            }
+        },
+        {
+            type: Component.Text,
+            name: "simple_ast_block",
+            value: 'Block(\n\t[\n\n\n\n\n\n\n\n\n\n\t]\n)',
+            font_size: 1.0,
+            color: Color.Orange,
+            position: [-0.34, -0.03],
+            anchor: [-1, 0],
+            style_overrides: {
+                textAlign: "left",
+            },
+        },
     ],
     keyframes: [
         [],
@@ -347,6 +383,26 @@ const presentation = {
 
             { element: 20, type: Action.FadeIn, delay: 0.7 },
             { element: 20, type: Action.SlideIn, direction: Cardinal.East, delay: 0.7 },
+        ],
+        [
+            { element: 16, type: Action.SlideOut, direction: Cardinal.West, duration: 0.4 },
+            { element: 18, type: Action.SlideOut, direction: Cardinal.West, duration: 0.4 },
+
+            { element: 19, type: Action.FadeOut, duration: 0.4 },
+            { element: 20, type: Action.FadeOut, duration: 0.4 },
+
+            { name: "simple_ast_decl", type: Action.Show, delay: 0.3 },
+            { name: "simple_ast_assign", type: Action.Show, delay: 0.3 },
+            { name: "simple_ast_block", type: Action.Show, delay: 0.3 },
+
+            { name: "simple_ast_decl", type: Action.SlideIn, direction: Cardinal.North, time_curve: (t) => 1 - Math.pow(1 - t, 2), delay: 0.3 },
+            { name: "simple_ast_assign", type: Action.SlideIn, direction: Cardinal.South, time_curve: (t) => 1 - Math.pow(1 - t, 2), delay: 0.3 },
+            { name: "simple_ast_block", type: Action.SlideIn, direction: Cardinal.West, time_curve: (t) => 1 - Math.pow(1 - t, 2), delay: 0.3 },
+        ],
+        [
+            { name: "simple_ast_assign", type: Action.FadeOut },
+            { name: "simple_ast_decl", type: Action.Move, destination: [-0.3, 0], anchor: [0, 0], delay: 0.3 },
+            { name: "simple_ast_assign", type: Action.Move, destination: [0.3, 0], anchor: [0, 0], delay: 0.3 },
         ],
     ],
 };
