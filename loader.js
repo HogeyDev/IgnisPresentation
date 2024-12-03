@@ -3,7 +3,6 @@ window.onload = () => {
     force_draw = true;
     loadSlide(presentation);
     draw();
-
 };
 
 let slide_counter;
@@ -12,6 +11,12 @@ let keyframe_counter = 0;
 let current_slide = null;
 function loadSlide(slide) {
     current_slide = slide;
+    for (let i = 0; i < current_slide.elements.length; i++) {
+        const elem = current_slide.elements[i];
+        if ("name" in elem) {
+            registerName(i, elem.name);
+        }
+    }
     slide_counter = current_slide.slide_counter ?? true;
     addKeyframe(0);
 }
@@ -25,6 +30,8 @@ function draw() {
         document.body.style.backgroundColor =
             display_slide.background_color ?? Color.Background;
         document.documentElement.style.backgroundColor = "#000000";
+        // for (let i = 0; i < display_slide.elements.length; i++) {
+        //     const elem = display_slide.elements[i];
         for (const elem of display_slide.elements) {
             if (elem.opacity <= 0 || elem.opacity === undefined) continue;
             const html_element = createPhysicalComponent(elem);
@@ -64,7 +71,7 @@ function createPhysicalComponent(elem) {
     phys.style.opacity = elem.opacity ?? 0;
 
     phys.style.border = `${(elem.border_size ?? 0) * document.body.clientHeight}px solid ${elem.border_color ?? Color.None}`;
-    
+
     switch (elem.type) {
         case Component.Text:
             if (elem.max_width !== undefined) phys.style.maxWidth = `${elem.max_width * document.body.clientWidth}px`;
@@ -77,7 +84,7 @@ function createPhysicalComponent(elem) {
             phys.innerHTML = elem.value;
             phys.style.color = elem.color;
             phys.style.zIndex = elem.layer ?? 0;
-            if(elem.gradient !== undefined) {
+            if (elem.gradient !== undefined) {
                 phys.style.background = `linear-gradient(${elem.gradient_direction}, ${elem.gradient[0]}, ${elem.gradient[1]})`;
                 phys.style.backgroundClip = "text";
                 phys.style.webkitTextFillColor = "transparent";
@@ -115,6 +122,7 @@ function addKeyframe(index) {
     for (const anim of current_slide.keyframes[index]) {
         keyframe_queue.push({
             ...anim,
+            element: (anim.name !== undefined ? getNameId(anim.name) : anim.element),
             start_time: performance.now() + (anim.delay ?? 0) * 1000, // milliseconds
             duration: anim.duration ?? 1.0, // seconds
             curve: anim.time_curve ?? function (t) { if (t < 0.5) { return 2 * t * t; } else { return 1 - 2 * (1 - t) * (1 - t); } },
@@ -229,6 +237,22 @@ function getAnimatedSlide(slide) {
     }
     return deep;
 
+}
+
+let elementNames = {};
+function registerName(id, name) {
+    if (name in elementNames && id != elementNames[name]) {
+        console.error(`Cannot change assignment of name "${name}" to id ${id}`);
+        return;
+    }
+    elementNames[name] = id;
+}
+function getNameId(name) {
+    if (elementNames[name] !== undefined) {
+        return elementNames[name];
+    } else {
+        console.error(`There are no elements with the name "${name}"`);
+    }
 }
 
 function advance() {

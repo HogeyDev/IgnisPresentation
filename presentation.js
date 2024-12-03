@@ -1,3 +1,5 @@
+/* prettier-ignore */
+/* eslint-disable */
 // import { Animation, Color, Component } from "../types.js";
 
 const presentation = {
@@ -5,6 +7,7 @@ const presentation = {
     elements: [
         {
             type: Component.Text,
+            name: "title",
             value: "Ignis",
             font_size: 5,
             color: Color.Red,
@@ -15,6 +18,7 @@ const presentation = {
         },
         {
             type: Component.Text,
+            name: "upper_subtitle",
             value: "The",
             font_size: 2,
             color: Color.Comment,
@@ -25,6 +29,7 @@ const presentation = {
         },
         {
             type: Component.Text,
+            name: "lower_subtitle",
             value: "Programming Language",
             font_size: 2,
             color: Color.Comment,
@@ -39,6 +44,7 @@ const presentation = {
         },
         {
             type: Component.Image,
+            name: "binary_file",
             path: "./binary_file.png",
             position: [0, 0],
             anchor: [0, 0],
@@ -46,6 +52,7 @@ const presentation = {
         },
         {
             type: Component.Rectangle,
+            name: "compiler_text_bg",
             color: Color.CurrentLine,
             position: [0, 0],
             anchor: [0, 0],
@@ -54,6 +61,7 @@ const presentation = {
         },
         {
             type: Component.Image,
+            name: "denied_cross",
             path: "./denied.png",
             position: [0, 0],
             anchor: [0, 0],
@@ -62,6 +70,7 @@ const presentation = {
         },
         {
             type: Component.Image,
+            name: "python_logo",
             path: "./python_logo.png",
             position: [0, 0],
             anchor: [0, 0],
@@ -69,6 +78,7 @@ const presentation = {
         },
         {
             type: Component.Image,
+            name: "c_logo",
             path: "./c_logo.png",
             position: [0, 0],
             anchor: [0, 0],
@@ -76,6 +86,7 @@ const presentation = {
         },
         {
             type: Component.Text,
+            name: "compiler_text",
             value: "Compiler",
             font_size: 3.5,
             color: Color.Cyan,
@@ -182,24 +193,6 @@ const presentation = {
         },
         {
             type: Component.Rectangle,
-            color: Color.None,
-            size: [0.105, 0.04],
-            position: [-0.901, -0.194],
-            anchor: [-0.95, 0],
-            border_size: 0.005,
-            border_color: Color.Yellow,
-        },
-        {
-            type: Component.Rectangle,
-            color: Color.None,
-            size: [0.16, 0.116],
-            position: [0.535, -0.71],
-            anchor: [-1, -1],
-            border_size: 0.005,
-            border_color: Color.Yellow,
-        },
-        {
-            type: Component.Rectangle,
             color: Color.CurrentLine,
             position: [0.27, 0],
             size: [0.4, 0.88],
@@ -223,16 +216,16 @@ const presentation = {
     keyframes: [
         [],
         [
-            { element: 0, type: Action.FadeIn, delay: 0.3 },
-            { element: 0, type: Action.SlideIn, direction: Cardinal.East },
-            { element: 1, type: Action.FadeIn, delay: 0.3 },
-            { element: 2, type: Action.FadeIn, delay: 0.3 },
+            { name: "title", type: Action.FadeIn, delay: 0.3 },
+            { name: "title", type: Action.SlideIn, direction: Cardinal.East },
+            { name: "upper_subtitle", type: Action.FadeIn, delay: 0.3 },
+            { name: "lower_subtitle", type: Action.FadeIn, delay: 0.3 },
         ],
         [
-            { element: 0, type: Action.Move, destination: [-0.95, -0.95], anchor: [-1, -1], delay: 1.0, duration: 1.5 },
-            { element: 0, type: Action.Resize, font_size: 3, delay: 1.0, duration: 1.5 },
-            { element: 1, type: Action.FadeOut, duration: 0.5 },
-            { element: 2, type: Action.FadeOut, delay: 0.3, duration: 0.5 },
+            { name: "title", type: Action.Move, destination: [-0.95, -0.95], anchor: [-1, -1], delay: 1.0, duration: 1.5 },
+            { name: "title", type: Action.Resize, font_size: 3, delay: 1.0, duration: 1.5 },
+            { name: "upper_subtitle", type: Action.FadeOut, duration: 0.5 },
+            { name: "lower_subtitle", type: Action.FadeOut, delay: 0.3, duration: 0.5 },
         ],
         [
             { element: 6, type: Action.Show },
@@ -255,23 +248,23 @@ const presentation = {
         [
             { element: 7, type: Action.FadeOut, duration: 0.3 },
 
-            { element: 4, type: Action.FadeIn, duration: 0.75, delay: 0.4 },
+            { name: "compiler_text_bg", type: Action.FadeIn, duration: 0.75, delay: 0.4 },
             { element: 8, type: Action.FadeIn, duration: 0.75, delay: 0.4 },
 
-            { element: 0, type: Action.Move, destination: [-0.35, 0], anchor: [1, 0], delay: 0.4 },
-            { element: 0, type: Action.Move, destination: [0, 0], anchor: [0, 0], delay: 1.5, duration: 0.5 },
-            { element: 0, type: Action.Resize, font_size: 1.5, delay: 1.5, duration: 0.5 },
+            { name: "title", type: Action.Move, destination: [-0.35, 0], anchor: [1, 0], delay: 0.4 },
+            { name: "title", type: Action.Move, destination: [0, 0], anchor: [0, 0], delay: 1.5, duration: 0.5 },
+            { name: "title", type: Action.Resize, font_size: 1.5, delay: 1.5, duration: 0.5 },
 
-            { element: 0, type: Action.Hide, delay: 2.5 },
-            { element: 3, type: Action.Show, delay: 1.5 },
-            { element: 3, type: Action.Resize, size: [(0.2 * 9) / 16, 0.2], delay: 1.75, duration: 0.5 },
-            { element: 3, type: Action.Move, destination: [0.35, 0], anchor: [-1, 0], delay: 1.75, duration: 0.5 },
+            { name: "title", type: Action.Hide, delay: 2.5 },
+            { name: "binary_file", type: Action.Show, delay: 1.5 },
+            { name: "binary_file", type: Action.Resize, size: [(0.2 * 9) / 16, 0.2], delay: 1.75, duration: 0.5 },
+            { name: "binary_file", type: Action.Move, destination: [0.35, 0], anchor: [-1, 0], delay: 1.75, duration: 0.5 },
         ],
         [
-            { element: 3, type: Action.SlideOut, direction: Cardinal.East },
-            { element: 3, type: Action.FadeOut },
-            { element: 4, type: Action.SlideOut, direction: Cardinal.West },
-            { element: 4, type: Action.FadeOut },
+            { name: "binary_file", type: Action.SlideOut, direction: Cardinal.East },
+            { name: "binary_file", type: Action.FadeOut },
+            { name: "compiler_text_bg", type: Action.SlideOut, direction: Cardinal.West },
+            { name: "compiler_text_bg", type: Action.FadeOut },
             { element: 8, type: Action.SlideOut, direction: Cardinal.West },
             { element: 8, type: Action.FadeOut },
 
@@ -330,41 +323,6 @@ const presentation = {
             { element: 18, type: Action.SlideIn, direction: Cardinal.East, time_curve: (t) => 1 - Math.pow(1 - t, 2) },
         ],
         [
-            { element: 19, type: Action.FadeIn },
-            { element: 20, type: Action.FadeIn },
-        ],
-        [
-            { element: 19, type: Action.Move, destination: [-0.901, -0.038], duration: 0.3 },
-            { element: 19, type: Action.Resize, size: [0.13, 0.04], duration: 0.3 },
-
-            { element: 20, type: Action.Move, destination: [0.5, -0.48], duration: 0.3 },
-            { element: 20, type: Action.Resize, size: [0.195, 0.24], duration: 0.3 },
-        ],
-        [
-            { element: 19, type: Action.Move, destination: [-0.815, 0.045], duration: 0.3 },
-            { element: 19, type: Action.Resize, size: [0.193, 0.04], duration: 0.3 },
-
-            { element: 20, type: Action.Move, destination: [0.495, 0], duration: 0.3 },
-            { element: 20, type: Action.Resize, size: [0.2, 0.191], duration: 0.3 },
-        ],
-        [
-            { element: 19, type: Action.Move, destination: [-0.82, 0.121], duration: 0.3 },
-            { element: 19, type: Action.Resize, size: [0.072, 0.035], duration: 0.3 },
-
-            { element: 20, type: Action.Move, destination: [0.545, 0.39], duration: 0.3 },
-            { element: 20, type: Action.Resize, size: [0.15, 0.115], duration: 0.3 },
-        ],
-        [
-            { element: 19, type: Action.Move, destination: [-0.907, 0.2], duration: 0.3 },
-            { element: 19, type: Action.Resize, size: [0.01, 0.035], duration: 0.3 },
-
-            { element: 20, type: Action.Move, destination: [0.545, 0.62], duration: 0.3 },
-            { element: 20, type: Action.Resize, size: [0.15, 0.041], duration: 0.3 },
-        ],
-        [
-            { element: 19, type: Action.FadeOut, duration: 0.6 },
-            { element: 20, type: Action.FadeOut, duration: 0.6 },
-
             { element: 15, type: Action.SlideOut, direction: Cardinal.West, delay: 0.6 },
             { element: 17, type: Action.SlideOut, direction: Cardinal.West, delay: 0.6 },
 
@@ -384,11 +342,11 @@ const presentation = {
             { element: 10, type: Action.SlideIn, direction: Cardinal.East, delay: 0.6 },
             { element: 13, type: Action.SlideIn, direction: Cardinal.East, delay: 0.6 },
 
-            { element: 21, type: Action.FadeIn, delay: 0.7 },
-            { element: 21, type: Action.SlideIn, direction: Cardinal.East, delay: 0.7 },
+            { element: 19, type: Action.FadeIn, delay: 0.7 },
+            { element: 19, type: Action.SlideIn, direction: Cardinal.East, delay: 0.7 },
 
-            { element: 22, type: Action.FadeIn, delay: 0.7 },
-            { element: 22, type: Action.SlideIn, direction: Cardinal.East, delay: 0.7 },
+            { element: 20, type: Action.FadeIn, delay: 0.7 },
+            { element: 20, type: Action.SlideIn, direction: Cardinal.East, delay: 0.7 },
         ],
     ],
 };
