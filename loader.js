@@ -2,7 +2,7 @@ window.onload = () => {
     resizeBody();
     force_draw = true;
     loadSlide(presentation);
-    draw();
+    window.requestAnimationFrame(draw);
 };
 
 let original_state = JSON.parse(JSON.stringify(presentation));
@@ -32,8 +32,7 @@ function draw() {
         force_draw = false;
         const display_slide = getAnimatedSlide(current_slide);
         document.body.innerHTML = "<div class=\"counter\"></div>";
-        document.body.style.backgroundColor =
-            display_slide.background_color ?? Color.Background;
+        document.body.style.backgroundColor = display_slide.background_color ?? Color.Background;
         document.documentElement.style.backgroundColor = "#000000";
         // for (let i = 0; i < display_slide.elements.length; i++) {
         //     const elem = display_slide.elements[i];
@@ -137,7 +136,9 @@ function addKeyframe(index) {
 }
 
 function getAnimatedSlide(slide) {
+    console.dir(slide, { depth: 1 });
     let deep = JSON.parse(JSON.stringify(slide));
+    console.dir(deep, { depth: 1 });
 
     for (let i = 0; i < keyframe_queue.length; i++) {
         const anim = keyframe_queue[i];
@@ -303,7 +304,6 @@ window.onresize = () => {
     force_draw = true;
     draw();
 };
-window.requestAnimationFrame(draw);
 
 function resizeBody() {
     let width, height;

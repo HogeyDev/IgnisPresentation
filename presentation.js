@@ -97,6 +97,7 @@ const presentation = {
         },
         {
             type: Component.Rectangle,
+            name: "lexer_background",
             color: Color.CurrentLine,
             border_radius: 0.02,
             position: [-0.6, 0],
@@ -105,6 +106,7 @@ const presentation = {
         },
         {
             type: Component.Rectangle,
+            name: "parser_background",
             color: Color.CurrentLine,
             border_radius: 0.02,
             position: [0, 0],
@@ -113,6 +115,7 @@ const presentation = {
         },
         {
             type: Component.Rectangle,
+            name: "codegen_background",
             color: Color.CurrentLine,
             border_radius: 0.02,
             position: [0.6, 0],
@@ -317,17 +320,17 @@ const presentation = {
             { element: 8, type: Action.SlideOut, direction: Cardinal.West },
             { element: 8, type: Action.FadeOut },
 
-            { element: 11, type: Action.FadeIn, delay: 1.1 },
+            { name: "codegen_background", type: Action.FadeIn, delay: 1.1 },
             {
-                element: 11,
+                name: "codegen_background",
                 type: Action.SlideIn,
                 direction: Cardinal.West,
                 delay: 1.1,
                 time_curve: (t) => 1 - Math.pow(1 - t, 4),
             },
-            { element: 10, type: Action.FadeIn, delay: 1.3 },
+            { name: "parser_background", type: Action.FadeIn, delay: 1.3 },
             {
-                element: 10,
+                name: "parser_background",
                 type: Action.SlideIn,
                 direction: Cardinal.West,
                 delay: 1.3,
@@ -347,9 +350,9 @@ const presentation = {
             { element: 14, type: Action.FadeIn, delay: 2.4, duration: 0.7 },
         ],
         [
-            { element: 10, type: Action.FadeOut, duration: 0.5 },
+            { name: "parser_background", type: Action.FadeOut, duration: 0.5 },
             { name: "parser_text", type: Action.FadeOut, duration: 0.5 },
-            { element: 11, type: Action.FadeOut, duration: 0.5 },
+            { name: "codegen_background", type: Action.FadeOut, duration: 0.5 },
             { element: 14, type: Action.FadeOut, duration: 0.5 },
 
             { element: 9, type: Action.Move, destination: [-0.8, -0.8], delay: 0.2 },
@@ -381,14 +384,14 @@ const presentation = {
             { element: 9, type: Action.SlideOut, direction: Cardinal.West, delay: 0.8 },
             { element: 12, type: Action.SlideOut, direction: Cardinal.West, delay: 0.8 },
 
-            { element: 10, type: Action.Show, delay: 0.6 },
-            { duration: 0, element: 10, type: Action.Move, destination: [-0.8, -0.8] },
-            { duration: 0, element: 10, type: Action.Resize, size: [0.15, 0.15] },
+            { name: "parser_background", type: Action.Show, delay: 0.6 },
+            { duration: 0, name: "parser_background", type: Action.Move, destination: [-0.8, -0.8] },
+            { duration: 0, name: "parser_background", type: Action.Resize, size: [0.15, 0.15] },
             { name: "parser_text", type: Action.Show, delay: 0.6 },
             { duration: 0, name: "parser_text", type: Action.Move, destination: [-0.8, -0.8] },
             { duration: 0, name: "parser_text", type: Action.Resize, font_size: 9 / 5 },
 
-            { element: 10, type: Action.SlideIn, direction: Cardinal.East, delay: 0.6 },
+            { name: "parser_background", type: Action.SlideIn, direction: Cardinal.East, delay: 0.6 },
             { name: "parser_text", type: Action.SlideIn, direction: Cardinal.East, delay: 0.6 },
 
             { element: 19, type: Action.FadeIn, delay: 0.7 },
