@@ -34,8 +34,6 @@ function draw() {
         document.body.innerHTML = "<div class=\"counter\"></div>";
         document.body.style.backgroundColor = display_slide.background_color ?? Color.Background;
         document.documentElement.style.backgroundColor = "#000000";
-        // for (let i = 0; i < display_slide.elements.length; i++) {
-        //     const elem = display_slide.elements[i];
         for (const elem of display_slide.elements) {
             if (elem.opacity <= 0 || elem.opacity === undefined) continue;
             const html_element = createPhysicalComponent(elem);
@@ -47,6 +45,7 @@ function draw() {
             counter.style.fontFamily = "sans-serif";
             counter.style.color = Color.Foreground;
             counter.style.left = `${document.body.clientWidth}px`;
+            counter.style.paddingRight = "7px";
             counter.style.position = "absolute";
             counter.style.transform = "translate(-100%, -100%)";
             counter.style.top = `${document.body.clientHeight}px`;
@@ -231,6 +230,9 @@ function getAnimatedSlide(slide) {
                     deep_element.size[1] = deep_element.size[1] * (1 - curved_t) + anim.size[1] * curved_t;
                 }
                 break;
+        }
+        if (anim.updater !== undefined) {
+            finished = anim.updater(deep_element, curved_t);
         }
 
         if (finished) {

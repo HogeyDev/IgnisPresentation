@@ -1,9 +1,9 @@
 /* prettier-ignore */
 /* eslint-disable */
-// import { Animation, Color, Component } from "../types.js";
 
 const presentation = {
     background_color: Color.Background,
+    slide_counter: false,
     elements: [
         {
             type: Component.Text,
@@ -244,7 +244,7 @@ const presentation = {
         {
             type: Component.Text,
             name: "example_stack",
-            value: "0x2a\n0xff\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00",
+            value: "0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00",
             font_size: 1.5,
             color: Color.Foreground,
             position: [-0.6, 0.2],
@@ -259,7 +259,7 @@ const presentation = {
             value: ">",
             font_size: 1.5,
             color: Color.Red,
-            position: [-0.73, -0.3175], // moving down a line of text means shimmying by 0.1125
+            position: [-0.73, -0.5425], // moving down a line of text means shimmying by 0.1125
             anchor: [0, 0],
             style_overrides: {
                 textAlign: "left",
@@ -271,11 +271,70 @@ const presentation = {
             value: "     >",
             font_size: 1.5,
             color: Color.Green,
-            position: [-0.73, -0.3175],
+            position: [-0.73, -0.5425],
             anchor: [0, 0],
             style_overrides: {
                 textAlign: "left",
             },
+        },
+        {
+            type: Component.Text,
+            name: "asm_registers",
+            value: "rax: 0\nrbx: 0\nrcx: 0\nrdx: 0\n\nrbp: 13\nrsp: 13",
+            font_size: 2,
+            gradient: [Color.Yellow, Color.Green],
+            gradient_direction: "to bottom right",
+            position: [-0.1, 0],
+            anchor: [0, 0],
+            style_overrides: {
+                textAlign: "left",
+            },
+        },
+        {
+            type: Component.Text,
+            name: "example_decl_asm",
+            value: "sub rsp, 4\nmov dword [rsp+0], 0",
+            gradient: [Color.Comment, Color.Foreground],
+            gradient_direction: "to top right",
+            font_size: 1.5,
+            position: [0.8, 0],
+            anchor: [1, 0],
+            style_overrides: {
+                textAlign: "left",
+            },
+        },
+        {
+            type: Component.Text,
+            name: "example_assign_asm",
+            value: "mov rdx, 42\npush rdx\nmov rax, qword [rsp]\nadd rsp, 8\nmov dword [rbp-4], eax",
+            gradient: [Color.Comment, Color.Foreground],
+            gradient_direction: "to top right",
+            font_size: 1.5,
+            position: [0.8, 0],
+            anchor: [1, 0],
+            style_overrides: {
+                textAlign: "left",
+            },
+        },
+        {
+            type: Component.Text,
+            name: "conclusion",
+            value: "Conclusion",
+            gradient: [Color.Red, Color.Orange],
+            gradient_direction: "to right",
+            font_size: 5.0,
+            position: [0, 0],
+            anchor: [0, 0],
+        },
+        {
+            type: Component.Text,
+            name: "demo",
+            value: "Demo",
+            gradient: [Color.Cyan, Color.Comment],
+            gradient_direction: "to right",
+            font_size: 5.0,
+            position: [0, 0],
+            anchor: [0, 0],
         },
     ],
     keyframes: [
@@ -419,7 +478,7 @@ const presentation = {
             { name: "codegen_text", type: Action.Move, destination: [-0.8, -0.8] },
             { name: "codegen_text", type: Action.FadeIn, duration: 0.6, delay: 0.4 },
 
-            { name: "simple_ast_decl", type: Action.SlideOut, direction: Cardinal.West },
+            { name: "simple_ast_decl", type: Action.Move, destination: [0.9, -0.9], anchor: [1, -1] },
             { name: "simple_ast_assign", type: Action.SlideOut, direction: Cardinal.East },
             { name: "simple_ast_source", type: Action.SlideOut, direction: Cardinal.North },
 
@@ -430,9 +489,120 @@ const presentation = {
             { name: "example_stack", type: Action.SlideIn, direction: Cardinal.West, duration: 1.1, delay: 1 },
             { name: "example_rsp", type: Action.SlideIn, direction: Cardinal.West, duration: 1, delay: 1.2 },
             { name: "example_rbp", type: Action.SlideIn, direction: Cardinal.West, duration: 0.9, delay: 1.4 },
+
+            { name: "asm_registers", type: Action.FadeIn, delay: 1.2 },
+            { name: "example_decl_asm", type: Action.Show, delay: 1.2 },
+            { name: "example_decl_asm", type: Action.SlideIn, direction: Cardinal.East, delay: 1.2 },
         ],
         [
             // keyframe: 15
+            {
+                name: "asm_registers",
+                updater: (elem, _) => {
+                    elem.value = "rax: 0\nrbx: 0\nrcx: 0\nrdx: 0\n\nrbp: 13\nrsp: 9";
+                    return true;
+                },
+            },
+            { name: "example_rsp", type: Action.Move, destination: [-0.73, -0.091], duration: 0.5 },
+        ],
+        [
+            // keyframe: 16
+            { name: "example_decl_asm", type: Action.SlideOut, direction: Cardinal.East },
+            { name: "example_decl_asm", type: Action.FadeOut },
+
+            { name: "example_assign_asm", type: Action.FadeIn, delay: 0.3 },
+            { name: "example_assign_asm", type: Action.SlideIn, direction: Cardinal.East, delay: 0.3 },
+
+            { name: "simple_ast_decl", type: Action.SlideOut, direction: Cardinal.East },
+            { name: "simple_ast_decl", type: Action.FadeOut },
+
+            { duration: 0, name: "simple_ast_assign", type: Action.Move, destination: [0.9, -0.9], anchor: [1, -1] },
+            { name: "simple_ast_assign", type: Action.SlideIn, direction: Cardinal.East, delay: 0.3 },
+            { name: "simple_ast_assign", type: Action.FadeIn, delay: 0.3 },
+        ],
+        [
+            // keyframe: 17
+            {
+                name: "asm_registers",
+                updater: (elem, _) => {
+                    elem.value = "rax: 0\nrbx: 0\nrcx: 0\nrdx: 42\n\nrbp: 13\nrsp: 9";
+                    return true;
+                },
+            }
+        ],
+        [
+            // keyframe: 18
+            {
+                name: "asm_registers",
+                updater: (elem, _) => {
+                    elem.value = "rax: 0\nrbx: 0\nrcx: 0\nrdx: 42\n\nrbp: 13\nrsp: 1";
+                    return true;
+                },
+            },
+            { name: "example_rsp", type: Action.Move, destination: [-0.73, 0.8225], duration: 0.5 },
+            {
+                name: "example_stack",
+                updater: (elem, _) => {
+                    elem.value = "0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x2a\n0x00";
+                    return true;
+                },
+                delay: 0.3,
+            }
+        ],
+        [
+            // keyframe: 19
+            {
+                name: "asm_registers",
+                updater: (elem, _) => {
+                    elem.value = "rax: 42\nrbx: 0\nrcx: 0\nrdx: 42\n\nrbp: 13\nrsp: 1";
+                    return true;
+                },
+            },
+        ],
+        [
+            // keyframe: 20
+            {
+                name: "asm_registers",
+                updater: (elem, _) => {
+                    elem.value = "rax: 42\nrbx: 0\nrcx: 0\nrdx: 42\n\nrbp: 13\nrsp: 9";
+                    return true;
+                },
+            },
+            { name: "example_rsp", type: Action.Move, destination: [-0.73, -0.091], duration: 0.5 },
+        ],
+        [
+            // keyframe: 21
+            {
+                name: "example_stack",
+                updater: (elem, _) => {
+                    elem.value = "0x00\n0x00\n0x00\n0x00\n0x2a\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x2a\n0x00";
+                    return true;
+                },
+            }
+        ],
+        [
+            // keyframe: 22
+            { name: "parser_background", type: Action.SlideOut, direction: Cardinal.West },
+            { name: "codegen_text", type: Action.SlideOut, direction: Cardinal.West },
+
+            { name: "simple_ast_assign", type: Action.SlideOut, direction: Cardinal.East },
+
+            { name: "example_rbp", type: Action.SlideOut, direction: Cardinal.South },
+            { name: "example_rsp", type: Action.SlideOut, direction: Cardinal.South, delay: 0.1 },
+            { name: "example_stack", type: Action.SlideOut, direction: Cardinal.South, delay: 0.2 },
+            { name: "asm_registers", type: Action.SlideOut, direction: Cardinal.South, delay: 0.3 },
+            { name: "example_assign_asm", type: Action.SlideOut, direction: Cardinal.South, delay: 0.4 },
+
+            { name: "demo", type: Action.SlideIn, direction: Cardinal.South, delay: 1.5 },
+            { name: "demo", type: Action.FadeIn, duration: 0.7, delay: 1.8 },
+        ],
+        [
+            // keyframe: 23
+            { name: "demo", type: Action.SlideOut, direction: Cardinal.North },
+            { name: "demo", type: Action.FadeOut },
+
+            { name: "conclusion", type: Action.SlideIn, direction: Cardinal.South, duration: 1.5 },
+            { name: "conclusion", type: Action.FadeIn, duration: 1.2, delay: 0.3 },
         ],
     ],
 };
