@@ -50,7 +50,7 @@ function draw() {
             counter.style.position = "absolute";
             counter.style.transform = "translate(-100%, -100%)";
             counter.style.top = `${document.body.clientHeight}px`;
-            counter.innerText = keyframe_counter;
+            counter.innerText = parseInt(keyframe_counter) - 1;
         }
     }
 
@@ -136,9 +136,7 @@ function addKeyframe(index) {
 }
 
 function getAnimatedSlide(slide) {
-    console.dir(slide, { depth: 1 });
     let deep = JSON.parse(JSON.stringify(slide));
-    console.dir(deep, { depth: 1 });
 
     for (let i = 0; i < keyframe_queue.length; i++) {
         const anim = keyframe_queue[i];

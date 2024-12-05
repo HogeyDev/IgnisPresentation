@@ -157,11 +157,12 @@ const presentation = {
         },
         {
             type: Component.Text,
+            name: "example_hello_world_source",
             value: 'import stdio;\n// comments are skipped\nfunc main(int) {\n\tprintln("Hello, World!");\n\treturn 0;\n}',
             color: Color.Purple,
             font_size: 1,
-            position: [-0.9, 0],
-            anchor: [-1, 0],
+            position: [-0.4, 0],
+            anchor: [0, 0],
             gradient: [Color.Purple, Color.Orange],
             gradient_direction: "to top right",
             style_overrides: {
@@ -170,43 +171,19 @@ const presentation = {
         },
         {
             type: Component.Text,
+            name: "example_hello_world_tokens",
             value: 'Import { "import" }\nIdentifier { "stdio" }\nSemiColon { ";" }\nFunction { "func" }\nIdentifier { "main" }\nLeftParenthesis { "(" }\nIdentifier { "int" }\nRightParenthesis { ")" }\nLeftBrace { "{" }\nIdentifier { "println" }\nLeftParenthesis { "(" }\nString { "Hello, World!" }\nRightParenthesis { ")" }\nSemiColon { ";" }\nReturn { "return" }\nInteger { "0" }\nSemiColon { ";" }\nRightBrace { "}" }',
             color: Color.Purple,
             font_size: 1,
-            position: [0.6, 0],
-            anchor: [-0.5, 0],
+            position: [0.4, 0],
+            anchor: [0, 0],
             max_width: 1,
             gradient: [Color.Cyan, Color.Purple],
             gradient_direction: "to top right",
         },
         {
-            type: Component.Rectangle,
-            color: Color.CurrentLine,
-            border_radius: 0.02,
-            size: [0, 0],
-            position: [-0.9, 0],
-            anchor: [-0.9, 0],
-            layer: -1,
-        },
-        {
-            type: Component.Rectangle,
-            color: Color.CurrentLine,
-            border_radius: 0.02,
-            size: [0, 0],
-            position: [0.6, 0],
-            anchor: [-0.4, 0],
-            layer: -1,
-        },
-        {
-            type: Component.Rectangle,
-            color: Color.CurrentLine,
-            position: [0.27, 0],
-            size: [0.4, 0.88],
-            anchor: [0, 0],
-            border_radius: 0.02,
-        },
-        {
             type: Component.Text,
+            name: "example_hello_world_ast",
             value: 'Import {\n\tmodule: "stdio",\n},\nFunctionDeclaration {\n\tname: "main",\n\treturn_type: "int",\n\tprototype: [],\n\tbody: Block(\n\t\t[\n\t\t\tFunctionCall {\n\t\t\t\tname: "println",\n\t\t\t\targuments: [\n\t\t\t\t\tArgument(\n\t\t\t\t\t\tString(\n\t\t\t\t\t\t\t"Hello, World!",\n\t\t\t\t\t\t),\n\t\t\t\t\t),\n\t\t\t\t],\n\t\t\t},\n\t\t\tReturn(\n\t\t\t\tInteger(\n\t\t\t\t\t0,\n\t\t\t\t),\n\t\t\t),\n\t\t],\n\t),\n},',
             font_size: 0.8,
             color: Color.Red,
@@ -264,44 +241,86 @@ const presentation = {
             position: [0, 0],
             anchor: [0, 0],
         },
+        {
+            type: Component.Text,
+            name: "example_stack",
+            value: "0x2a\n0xff\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00\n0x00",
+            font_size: 1.5,
+            color: Color.Foreground,
+            position: [-0.6, 0.2],
+            anchor: [0, 0],
+            style_overrides: {
+                textAlign: "left",
+            },
+        },
+        {
+            type: Component.Text,
+            name: "example_rbp",
+            value: ">",
+            font_size: 1.5,
+            color: Color.Red,
+            position: [-0.73, -0.3175], // moving down a line of text means shimmying by 0.1125
+            anchor: [0, 0],
+            style_overrides: {
+                textAlign: "left",
+            },
+        },
+        {
+            type: Component.Text,
+            name: "example_rsp",
+            value: "     >",
+            font_size: 1.5,
+            color: Color.Green,
+            position: [-0.73, -0.3175],
+            anchor: [0, 0],
+            style_overrides: {
+                textAlign: "left",
+            },
+        },
     ],
     keyframes: [
-        [],
+        [ /* keyframe: 0 */ ],
         [
+            // keyframe: 1
             { name: "title", type: Action.FadeIn, delay: 0.3 },
             { name: "title", type: Action.SlideIn, direction: Cardinal.East },
             { name: "upper_subtitle", type: Action.FadeIn, delay: 0.3 },
             { name: "lower_subtitle", type: Action.FadeIn, delay: 0.3 },
         ],
         [
+            // keyframe: 2
             { name: "title", type: Action.Move, destination: [-0.95, -0.95], anchor: [-1, -1], delay: 1.0, duration: 1.5 },
             { name: "title", type: Action.Resize, font_size: 3, delay: 1.0, duration: 1.5 },
             { name: "upper_subtitle", type: Action.FadeOut, duration: 0.5 },
             { name: "lower_subtitle", type: Action.FadeOut, delay: 0.3, duration: 0.5 },
         ],
         [
-            { element: 6, type: Action.Show },
-            { element: 6, type: Action.SlideIn, direction: Cardinal.North },
+            // keyframe: 3
+            { name: "python_logo", type: Action.Show },
+            { name: "python_logo", type: Action.SlideIn, direction: Cardinal.North },
         ],
         [
-            { element: 5, type: Action.FadeIn },
-            { element: 5, type: Action.Resize, size: [(0.3 * 9) / 16, 0.3] },
+            // keyframe: 4
+            { name: "denied_cross", type: Action.FadeIn },
+            { name: "denied_cross", type: Action.Resize, size: [(0.35 * 9) / 16, 0.35] },
         ],
         [
-            { element: 5, type: Action.SlideOut, direction: Cardinal.East },
-            { element: 5, type: Action.SlideOut, direction: Cardinal.North },
-            { element: 6, type: Action.SlideOut, direction: Cardinal.East },
-            { element: 6, type: Action.SlideOut, direction: Cardinal.North },
+            // keyframe: 5
+            { name: "denied_cross", type: Action.SlideOut, direction: Cardinal.East },
+            { name: "denied_cross", type: Action.SlideOut, direction: Cardinal.North },
+            { name: "python_logo", type: Action.SlideOut, direction: Cardinal.East },
+            { name: "python_logo", type: Action.SlideOut, direction: Cardinal.North },
 
-            { element: 7, type: Action.Show, delay: 0.2 },
-            { element: 7, type: Action.SlideIn, direction: Cardinal.South, delay: 0.2 },
-            { element: 7, type: Action.SlideIn, direction: Cardinal.West, delay: 0.2 },
+            { name: "c_logo", type: Action.Show, delay: 0.2 },
+            { name: "c_logo", type: Action.SlideIn, direction: Cardinal.South, delay: 0.2 },
+            { name: "c_logo", type: Action.SlideIn, direction: Cardinal.West, delay: 0.2 },
         ],
         [
-            { element: 7, type: Action.FadeOut, duration: 0.3 },
+            // keyframe: 6
+            { name: "c_logo", type: Action.FadeOut, duration: 0.3 },
 
             { name: "compiler_text_bg", type: Action.FadeIn, duration: 0.75, delay: 0.4 },
-            { element: 8, type: Action.FadeIn, duration: 0.75, delay: 0.4 },
+            { name: "compiler_text", type: Action.FadeIn, duration: 0.75, delay: 0.4 },
 
             { name: "title", type: Action.Move, destination: [-0.35, 0], anchor: [1, 0], delay: 0.4 },
             { name: "title", type: Action.Move, destination: [0, 0], anchor: [0, 0], delay: 1.5, duration: 0.5 },
@@ -313,103 +332,70 @@ const presentation = {
             { name: "binary_file", type: Action.Move, destination: [0.35, 0], anchor: [-1, 0], delay: 1.75, duration: 0.5 },
         ],
         [
+            // keyframe: 7
             { name: "binary_file", type: Action.SlideOut, direction: Cardinal.East },
             { name: "binary_file", type: Action.FadeOut },
             { name: "compiler_text_bg", type: Action.SlideOut, direction: Cardinal.West },
             { name: "compiler_text_bg", type: Action.FadeOut },
-            { element: 8, type: Action.SlideOut, direction: Cardinal.West },
-            { element: 8, type: Action.FadeOut },
+            { name: "compiler_text", type: Action.SlideOut, direction: Cardinal.West },
+            { name: "compiler_text", type: Action.FadeOut },
 
             { name: "codegen_background", type: Action.FadeIn, delay: 1.1 },
-            {
-                name: "codegen_background",
-                type: Action.SlideIn,
-                direction: Cardinal.West,
-                delay: 1.1,
-                time_curve: (t) => 1 - Math.pow(1 - t, 4),
-            },
+            { name: "codegen_background", type: Action.SlideIn, direction: Cardinal.West, delay: 1.1, time_curve: (t) => 1 - Math.pow(1 - t, 4) },
             { name: "parser_background", type: Action.FadeIn, delay: 1.3 },
-            {
-                name: "parser_background",
-                type: Action.SlideIn,
-                direction: Cardinal.West,
-                delay: 1.3,
-                time_curve: (t) => 1 - Math.pow(1 - t, 4),
-            },
-            { element: 9, type: Action.FadeIn, delay: 1.5 },
-            {
-                element: 9,
-                type: Action.SlideIn,
-                direction: Cardinal.West,
-                delay: 1.5,
-                time_curve: (t) => 1 - Math.pow(1 - t, 4),
-            },
+            { name: "parser_background", type: Action.SlideIn, direction: Cardinal.West, delay: 1.3, time_curve: (t) => 1 - Math.pow(1 - t, 4) },
+            { name: "lexer_background", type: Action.FadeIn, delay: 1.5 },
+            { name: "lexer_background", type: Action.SlideIn, direction: Cardinal.West, delay: 1.5, time_curve: (t) => 1 - Math.pow(1 - t, 4) },
 
-            { element: 12, type: Action.FadeIn, delay: 2.2, duration: 0.7 },
+            { name: "lexer_text", type: Action.FadeIn, delay: 2.2, duration: 0.7 },
             { name: "parser_text", type: Action.FadeIn, delay: 2.3, duration: 0.7 },
-            { element: 14, type: Action.FadeIn, delay: 2.4, duration: 0.7 },
+            { name: "codegen_text", type: Action.FadeIn, delay: 2.4, duration: 0.7 },
         ],
         [
+            // keyframe: 8
             { name: "parser_background", type: Action.FadeOut, duration: 0.5 },
             { name: "parser_text", type: Action.FadeOut, duration: 0.5 },
             { name: "codegen_background", type: Action.FadeOut, duration: 0.5 },
-            { element: 14, type: Action.FadeOut, duration: 0.5 },
+            { name: "codegen_text", type: Action.FadeOut, duration: 0.5 },
 
-            { element: 9, type: Action.Move, destination: [-0.8, -0.8], delay: 0.2 },
-            { element: 9, type: Action.Resize, size: [0.15, 0.15], delay: 0.2 },
-            { element: 12, type: Action.Move, destination: [-0.8, -0.8], delay: 0.2 },
-            { element: 12, type: Action.Resize, font_size: 9 / 5, delay: 0.2 },
+            { name: "lexer_background", type: Action.Move, destination: [-0.8, -0.8], delay: 0.2 },
+            { name: "lexer_background", type: Action.Resize, size: [0.15, 0.15], delay: 0.2 },
+            { name: "lexer_text", type: Action.Move, destination: [-0.8, -0.8], delay: 0.2 },
+            { name: "lexer_text", type: Action.Resize, font_size: 9 / 5, delay: 0.2 },
         ],
         [
-            { element: 15, type: Action.FadeIn },
-            { element: 15, type: Action.SlideIn, direction: Cardinal.West },
-            { duration: 0, element: 17, type: Action.Resize, size: [0.25, 0.27] },
-            { element: 17, type: Action.FadeIn },
-            { element: 17, type: Action.SlideIn, direction: Cardinal.West },
+            // keyframe: 9
+            { name: "example_hello_world_source", type: Action.FadeIn },
+            { name: "example_hello_world_source", type: Action.SlideIn, direction: Cardinal.West },
         ],
         [
-            { element: 16, type: Action.FadeIn },
-            { element: 16, type: Action.SlideIn, direction: Cardinal.East, time_curve: (t) => 1 - Math.pow(1 - t, 2) },
-            { duration: 0, element: 18, type: Action.Resize, size: [0.23, 0.73] },
-            { element: 18, type: Action.FadeIn },
-            { element: 18, type: Action.SlideIn, direction: Cardinal.East, time_curve: (t) => 1 - Math.pow(1 - t, 2) },
+            // keyframe: 10
+            { name: "example_hello_world_tokens", type: Action.FadeIn },
+            { name: "example_hello_world_tokens", type: Action.SlideIn, direction: Cardinal.East, time_curve: (t) => 1 - Math.pow(1 - t, 2) },
         ],
         [
-            { element: 15, type: Action.SlideOut, direction: Cardinal.West, delay: 0.6 },
-            { element: 17, type: Action.SlideOut, direction: Cardinal.West, delay: 0.6 },
+            // keyframe: 11
+            { name: "example_hello_world_source", type: Action.SlideOut, direction: Cardinal.South },
 
-            { element: 16, type: Action.Move, destination: [-0.715, 0.15], anchor: [0, 0], delay: 0.5 },
-            { element: 18, type: Action.Move, destination: [-0.715, 0.15], anchor: [0, 0], delay: 0.5 },
+            { name: "example_hello_world_tokens", type: Action.SlideOut, direction: Cardinal.South },
 
-            { element: 9, type: Action.SlideOut, direction: Cardinal.West, delay: 0.8 },
-            { element: 12, type: Action.SlideOut, direction: Cardinal.West, delay: 0.8 },
+            { name: "lexer_background", type: Action.SlideOut, direction: Cardinal.West },
+            { name: "lexer_text", type: Action.SlideOut, direction: Cardinal.West },
 
-            { name: "parser_background", type: Action.Show, delay: 0.6 },
+            { name: "parser_background", type: Action.Show },
             { duration: 0, name: "parser_background", type: Action.Move, destination: [-0.8, -0.8] },
             { duration: 0, name: "parser_background", type: Action.Resize, size: [0.15, 0.15] },
-            { name: "parser_text", type: Action.Show, delay: 0.6 },
+            { name: "parser_text", type: Action.Show },
             { duration: 0, name: "parser_text", type: Action.Move, destination: [-0.8, -0.8] },
             { duration: 0, name: "parser_text", type: Action.Resize, font_size: 9 / 5 },
 
-            { name: "parser_background", type: Action.SlideIn, direction: Cardinal.East, delay: 0.6 },
-            { name: "parser_text", type: Action.SlideIn, direction: Cardinal.East, delay: 0.6 },
+            { name: "parser_background", type: Action.SlideIn, direction: Cardinal.East },
+            { name: "parser_text", type: Action.SlideIn, direction: Cardinal.East },
 
-            { element: 19, type: Action.FadeIn, delay: 0.7 },
-            { element: 19, type: Action.SlideIn, direction: Cardinal.East, delay: 0.7 },
-
-            { element: 20, type: Action.FadeIn, delay: 0.7 },
-            { element: 20, type: Action.SlideIn, direction: Cardinal.East, delay: 0.7 },
+            { name: "simple_ast_source", type: Action.FadeIn, delay: 0.3 },
         ],
         [
-            { element: 16, type: Action.SlideOut, direction: Cardinal.West, duration: 0.6 },
-            { element: 18, type: Action.SlideOut, direction: Cardinal.West, duration: 0.6 },
-
-            { element: 19, type: Action.FadeOut, duration: 0.6 },
-            { element: 20, type: Action.FadeOut, duration: 0.6 },
-
-            { name: "simple_ast_source", type: Action.FadeIn, delay: 0.4 },
-        ],
-        [
+            // keyframe: 12
             { name: "simple_ast_source", type: Action.Move, destination: [0, -0.8], duration: 0.8 },
             { name: "simple_ast_source", type: Action.Resize, font_size: 2.0 },
 
@@ -418,18 +404,35 @@ const presentation = {
             { name: "simple_ast_block", type: Action.FadeIn, delay: 0.3 },
         ],
         [
+            // keyframe: 13
             { name: "simple_ast_block", type: Action.FadeOut, duration: 0.5 },
             { name: "simple_ast_decl", type: Action.Move, destination: [-0.3, 0], anchor: [0, 0], delay: 0.3 },
             { name: "simple_ast_assign", type: Action.Move, destination: [0.3, 0], anchor: [0, 0], delay: 0.3 },
         ],
         [
-            { name: "parser_text", type: Action.Move, destination: [-0.8, -0.7], duration: 0.5 },
-            { name: "parser_text", type: Action.FadeOut, duration: 0.7 },
+            // keyframe: 14
+            { name: "parser_text", type: Action.Move, destination: [-0.8, -0.7] },
+            { name: "parser_text", type: Action.FadeOut, duration: 0.6 },
 
             { duration: 0, name: "codegen_text", type: Action.Resize, font_size: 9 / 5 },
             { duration: 0, name: "codegen_text", type: Action.Move, destination: [-0.8, -0.9] },
-            { name: "codegen_text", type: Action.Move, destination: [-0.8, -0.8], duration: 0.5 },
-            { name: "codegen_text", type: Action.FadeIn, duration: 0.5 },
-        ]
+            { name: "codegen_text", type: Action.Move, destination: [-0.8, -0.8] },
+            { name: "codegen_text", type: Action.FadeIn, duration: 0.6, delay: 0.4 },
+
+            { name: "simple_ast_decl", type: Action.SlideOut, direction: Cardinal.West },
+            { name: "simple_ast_assign", type: Action.SlideOut, direction: Cardinal.East },
+            { name: "simple_ast_source", type: Action.SlideOut, direction: Cardinal.North },
+
+            { name: "example_stack", type: Action.Show, delay: 1 },
+            { name: "example_rsp", type: Action.Show, delay: 1.2 },
+            { name: "example_rbp", type: Action.Show, delay: 1.4 },
+
+            { name: "example_stack", type: Action.SlideIn, direction: Cardinal.West, duration: 1.1, delay: 1 },
+            { name: "example_rsp", type: Action.SlideIn, direction: Cardinal.West, duration: 1, delay: 1.2 },
+            { name: "example_rbp", type: Action.SlideIn, direction: Cardinal.West, duration: 0.9, delay: 1.4 },
+        ],
+        [
+            // keyframe: 15
+        ],
     ],
 };
